@@ -1,19 +1,17 @@
 
-library(magrittr)
-
-# file paths
-fp_main <- here::here()
-fp_data <- paste0(fp_main, "/data")
-
-# read data 
-df <- read.csv(paste0(fp_data, "/acled_conflict_africa_1997_2022.csv"))
-
-df_sub <- 
-  df %>% 
+acled_sub <- 
+  acled %>% 
   dplyr::select(data_id, year, country, dplyr::contains("actor")) %>% 
+  dplyr::mutate(
+    actor1_location = as.character(stringr::str_match_all(string = actor1, pattern = "(?<=\\().+?(?=\\))")),
+    actor2_location = as.character(stringr::str_match_all(string = actor2, pattern = "(?<=\\().+?(?=\\))")),
+    assoc_actor_1_location = as.character(stringr::str_match_all(string = assoc_actor_1, pattern = "(?<=\\().+?(?=\\))")),
+    assoc_actor_2_location = as.character(stringr::str_match_all(string = assoc_actor_2, pattern = "(?<=\\().+?(?=\\))"))) %>%
+  dplyr::mutate(dplyr::across(dplyr::everything(), ~ ifelse(. == "character(0)", NA, .))) %>% 
+  dplyr::select(data_id, country, year, actor1, assoc_actor_1, actor2, assoc_actor_2, actor1_location, assoc_actor_1_location, actor2_location, assoc_actor_2_location) %>%
   as.data.frame(.)
 
-df_dataframes <- split(df_sub, df_sub$year)
+df_dataframes <- split(acled_sub, acled_sub$year)
 
 # create workbook
 obj_wb <- openxlsx::createWorkbook()
