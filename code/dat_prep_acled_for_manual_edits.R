@@ -1,6 +1,8 @@
+######################################################################################################################################################
+######
 
-acled_sub <- 
-  acled %>% 
+df_acled_sub <- 
+  df_acled %>% 
   dplyr::select(data_id, year, country, dplyr::contains("actor")) %>% 
   dplyr::mutate(
     actor1_location = as.character(stringr::str_match_all(string = actor1, pattern = "(?<=\\().+?(?=\\))")),
@@ -11,7 +13,7 @@ acled_sub <-
   dplyr::select(data_id, country, year, actor1, assoc_actor_1, actor2, assoc_actor_2, actor1_location, assoc_actor_1_location, actor2_location, assoc_actor_2_location) %>%
   as.data.frame(.)
 
-df_dataframes <- split(acled_sub, acled_sub$year)
+df_dataframes <- split(df_acled_sub, df_acled_sub$year)
 
 # create workbook
 obj_wb <- openxlsx::createWorkbook()
@@ -26,3 +28,5 @@ Map(function(vec_data, vec_nameofsheet){
 
 ## Save workbook to excel file 
 openxlsx::saveWorkbook(obj_wb, file = paste0(fp_data, "/acled_by_year.xlsx"), overwrite = TRUE)
+
+googlesheets4::gs4_create("acled_by_year", sheets = df_dataframes)
