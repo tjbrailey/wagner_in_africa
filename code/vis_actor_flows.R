@@ -1,7 +1,7 @@
 ######################################################################################################################################################
-######
+###### plot maps of actor country of origin and conflict locations
 
-plot <- ggplot() + 
+plot_coo_conflict <- ggplot() + 
   geom_sf(data = df_world_map, fill = NA) + 
   geom_curve(
     data = df_acled_final, 
@@ -25,5 +25,5 @@ plot <- ggplot() +
     color = "orange", 
     alpha = 0.5) + 
   labs(x = "", y = "", color = "Test") + 
-  theme_classic()
-plot
+  theme_minimal()
+plot_coo_conflict
