@@ -22,10 +22,10 @@ df_acled     <- read.csv(paste0(fp_data, "/acled_conflict_africa_1997_2022.csv")
 df_world_map <- rnaturalearth::ne_countries(scale = "medium", type = "map_units", returnclass = "sf")
 
 # read googlesheet-stored datasets
-vec_ss <- "https://docs.google.com/spreadsheets/d/1Mr0AcsLRywOo5BmyE7ahfKP9XZVKYW7j6VQvltyo37Q/edit#gid=96111818" 
+vec_ss <- "https://docs.google.com/spreadsheets/d/1m1f2efMV61YMtlz1ugsQnPMCB0XLfIlMV1m_N8KGCbk/edit#gid=179470013" 
 vec_years <- c(as.character(1997:2022))
 
-df_acled_manual <- googlesheets4::read_sheet(ss = vec_ss, sheet = vec_years[1])
+df_acled_manual <- googlesheets4::read_sheet(ss = vec_ss, sheet = vec_years[3])
 
 ######################################################################################################################################################
 ###### wrangle data 
@@ -35,7 +35,7 @@ source(paste0(fp_code, "/dat_wrangle.R"))
 ######################################################################################################################################################
 ###### read scripts
 
-source(paste0(fp_code, "/dat_prep_acled_for_manual_edits.R"))
+#source(paste0(fp_code, "/dat_prep_acled_for_manual_edits.R"))
 
 source(paste0(fp_code, "/dat_acled_manual_edits_check.R"))
 
