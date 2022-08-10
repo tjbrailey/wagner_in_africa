@@ -8,6 +8,8 @@ vec_acled_country <- gsub(x = vec_acled_country, pattern = "Congo - Kinshasa", r
 vec_acled_country <- gsub(x = vec_acled_country, pattern = "Congo - Brazzaville", replacement = "Republic of Congo")
 vec_acled_country <- gsub(x = vec_acled_country, pattern = "Côte d’Ivoire", replacement = "Ivory Coast")
 vec_acled_country <- gsub(x = vec_acled_country, pattern = "Eswatini", replacement = "eSwatini")
+vec_acled_country <- gsub(x = vec_acled_country, pattern = "Réunion", replacement = "Reunion")
+vec_acled_country <- gsub(x = vec_acled_country, pattern = "São Tomé & Príncipe", replacement = "Sao Tome and Principe")
 
 # standardize country names for world map shapefile
 df_world_map <- dplyr::mutate(df_world_map, country = countrycode::countryname(sourcevar = name)) %>% 
