@@ -1,14 +1,6 @@
 ######################################################################################################################################################
 ###### wrangle datasets for analysis and visualization
 
-# create vector of country names and standardize naming format
-vec_acled_country <- unique(countrycode::codelist$country.name.en)
-vec_acled_country <- c(vec_acled_country, "International")
-vec_acled_country <- gsub(x = vec_acled_country, pattern = "Congo - Kinshasa", replacement = "Democratic Republic of Congo")
-vec_acled_country <- gsub(x = vec_acled_country, pattern = "Congo - Brazzaville", replacement = "Republic of Congo")
-vec_acled_country <- gsub(x = vec_acled_country, pattern = "Côte d’Ivoire", replacement = "Ivory Coast")
-vec_acled_country <- gsub(x = vec_acled_country, pattern = "Eswatini", replacement = "eSwatini")
-
 # standardize country names for world map shapefile
 df_world_map <- dplyr::mutate(df_world_map, country = countrycode::countryname(sourcevar = name)) %>% 
   dplyr::mutate(country = dplyr::case_when(
@@ -34,10 +26,10 @@ df_origin_locations <- df_world_map %>%
   dplyr::select(-name, -geometry, -centroid)
 
 # create final plotting dataframe
-df_acled_final <- df_acled_manual %>%
-  dplyr::select(data_id, dplyr::contains("location")) %>%
-  dplyr::left_join(., df_acled) %>%
-  dplyr::left_join(., df_origin_locations, by = "actor1_location") %>% 
-  #sf::st_as_sf(.) %>% 
-  dplyr::mutate(latitude = as.numeric(latitude),
-                longitude = as.numeric(longitude))
+#df_acled_final <- df_acled_manual %>%
+#  dplyr::select(data_id, dplyr::contains("location")) %>%
+#  dplyr::left_join(., df_acled) %>%
+#  dplyr::left_join(., df_origin_locations, by = "actor1_location") %>% 
+#  #sf::st_as_sf(.) %>% 
+#  dplyr::mutate(latitude = as.numeric(latitude),
+#                longitude = as.numeric(longitude))
