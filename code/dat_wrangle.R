@@ -13,6 +13,10 @@ df_world_map <- dplyr::mutate(df_world_map, country = countrycode::countryname(s
 
 sf::sf_use_s2(FALSE)
 
+# example using 1997 data
+df_acled_manual <- googlesheets4::read_sheet(ss = vec_ss, sheet = vec_years[1])
+
+
 # join world map to acled data to calculate actor's country of origin
 df_origin_locations <- df_world_map %>%
   dplyr::select(name, country, geometry) %>% 
@@ -26,10 +30,10 @@ df_origin_locations <- df_world_map %>%
   dplyr::select(-name, -geometry, -centroid)
 
 # create final plotting dataframe
-#df_acled_final <- df_acled_manual %>%
-#  dplyr::select(data_id, dplyr::contains("location")) %>%
-#  dplyr::left_join(., df_acled) %>%
-#  dplyr::left_join(., df_origin_locations, by = "actor1_location") %>% 
-#  #sf::st_as_sf(.) %>% 
-#  dplyr::mutate(latitude = as.numeric(latitude),
-#                longitude = as.numeric(longitude))
+df_acled_final <- df_acled_manual %>%
+  dplyr::select(data_id, dplyr::contains("location")) %>%
+  dplyr::left_join(., df_acled) %>%
+  dplyr::left_join(., df_origin_locations, by = "actor1_location") %>% 
+  #sf::st_as_sf(.) %>% 
+  dplyr::mutate(latitude = as.numeric(latitude),
+                longitude = as.numeric(longitude))
