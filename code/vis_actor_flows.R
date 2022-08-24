@@ -13,7 +13,7 @@ plot_coo_conflict <- ggplot() +
       y = orig_lat,
       xend = longitude,
       yend = latitude)) + 
-  coord_sf(xlim = c(-40, 60), ylim = c(-30, 70)) + 
+  #coord_sf(xlim = c(-40, 60), ylim = c(-30, 70)) + 
   geom_point(
     data = df_acled_final, 
     mapping = aes(x = longitude, y = latitude), 

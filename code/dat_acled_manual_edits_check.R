@@ -57,10 +57,6 @@ df_acled_manual_checks_long <-
 
 ### primary checks
 
-# example using 1997 data
-df_acled_manual <- googlesheets4::read_sheet(ss = vec_ss, sheet = vec_years[1])
-
-
 # make sure we haven't missed anything (all outputs should be numeric(0))
 # go to the corresponding output row to resolve any issues
 which(is.na(df_acled_manual$actor1) != is.na(df_acled_manual$actor1_location)) + 1
